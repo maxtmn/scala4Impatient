@@ -4,7 +4,6 @@ package exercises
  * Control structures and functions
  * @author Tereshchenko
  */
-import scala.reflect.internal.util.StringOps
 package object chapter2 {
   /**
    * EX_2_01.
