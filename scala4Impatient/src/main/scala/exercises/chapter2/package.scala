@@ -4,6 +4,7 @@ package exercises
  * Control structures and functions
  * @author Tereshchenko
  */
+import scala.reflect.internal.util.StringOps
 package object chapter2 {
   /**
    * EX_2_01.
@@ -67,6 +68,27 @@ package object chapter2 {
    *  Write a for loop for computing the product of the Unicode codes of all letters
    * in a string. For example, the product of the characters in "Hello" is 9415087488.
    */
+  def stringUnicodeProduct_2(str: String): BigInt = {
+    //var product = 1 error, implicit type Int is too small
+    var product: BigInt = 1
+    for (c <- str) product = product * c
+    product
+  }
+
+  /**
+   * EX_2_07.
+   *  Solve the preceding exercise without writing a loop. (Hint: Look at the StringOps
+   * Scaladoc.)
+   */
+  def stringUnicodeProduct_3(str: String): BigInt = {
+    str.foldLeft(BigInt("1"))((a, b) => a * b)
+  }
+
+  /**
+   * EX_2_09.
+   *  Write a for loop for computing the product of the Unicode codes of all letters
+   * in a string. For example, the product of the characters in "Hello" is 9415087488.
+   */
   def stringUnicodeProduct(str: String): BigInt = {
     unicodeProductRecursive(str)
   }
@@ -80,15 +102,20 @@ package object chapter2 {
   }
 
   /**
-   * EX_2_06.
-   *  Write a for loop for computing the product of the Unicode codes of all letters
-   * in a string. For example, the product of the characters in "Hello" is 9415087488.
+   *  EX_2_10.
+   *  Write a function that computes x^n, where n is an integer. Use the following
+   *  recursive definition
+   *  xn = y2 if n is even and positive, where y = x ^ n / 2.
+   *  xn = x * x ^ n - 1 if n is odd and positive.
+   *  x0 = 1
+   *  xn = 1 / x ^ -n if n is negative.
+   *  Don't use a return statement.
    */
-  def stringUnicodeProduct_2(str: String): BigInt = {
-    //var product = 1 error, implicit type Int is too small
-    var product: BigInt = 1
-    for (c <- str) product = product * c
-    product
+  def xpown(x: Int, n: Int): BigInt = {
+    if (n > 0 && n % 2 == 0) xpown(x, n / 2) * xpown(x, n / 2)
+    else if (n > 0 && n % 2 != 0) x * xpown(x, n - 1)
+    else if (n == 0) 1
+    else 1 / xpown(x, -n)
   }
 
 }

@@ -56,12 +56,18 @@ class Tests {
 
   @Test def stringUnicodeProduct$recursive() {
     assertEquals("string 'Hello' unicode product is 9415087488", BigInt("9415087488"), exercises.chapter2.stringUnicodeProduct("Hello"))
-
   }
 
   @Test def stringUnicodeProduct$loop() {
     assertEquals("string 'Hello' unicode product is 9415087488", BigInt("9415087488"), exercises.chapter2.stringUnicodeProduct_2("Hello"))
-
   }
 
+  @Test def stringUnicodeProduct$foldLeft() {
+    assertEquals("string 'Hello' unicode product is 9415087488", BigInt("9415087488"), exercises.chapter2.stringUnicodeProduct_3("Hello"))
+  }
+
+  @Test def xpown() {
+    assertEquals("x^n", BigInt("8"), exercises.chapter2.xpown(2, 3))
+  }
+ 
 }
