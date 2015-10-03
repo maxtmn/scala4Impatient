@@ -4,7 +4,7 @@
 # sbt specific
 .cache
 .cache-main
-.cache-test
+.cache-tests
 .history
 .lib/
 dist/*
