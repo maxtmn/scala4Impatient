@@ -82,4 +82,28 @@ class Tests {
     assertArrayEquals(exp, res);
   }
 
+  @Test def bookExampleTest() {
+    val exp = Array(2, 6, -1, 9, 0, 6, 8)
+    val res = bookExample(ArrayBuffer(2, 6, -1, 9, 0, -4, 6, -1, 8))
+    assertArrayEquals(exp, res.toArray);
+  }
+
+  @Test def bookExample2Test() {
+    val exp = Array(2, 6, -1, 9, 0, 6, 8)
+    val res = bookExample2(ArrayBuffer(2, 6, -1, 9, 0, -4, 6, -1, 8))
+    assertArrayEquals(exp, res.toArray);
+  }
+
+  @Test def timeZoneTest() {
+    val res = timeZone();
+    assertEquals("Adak", res.head)
+    assertEquals("Yellowknife", res.last)
+  }
+
+  @Test def timeZone2Test() {
+    val res = timeZone2();
+    assertEquals("Adak", res.head)
+    assertEquals("Yellowknife", res.last)
+  }
+
 }

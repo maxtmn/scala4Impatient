@@ -5,6 +5,7 @@ package exercises
  * @author Tereshchenko
  */
 import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.Buffer
 package object chapter3 {
   /**
    * EX_3_01
@@ -94,16 +95,50 @@ package object chapter3 {
 
   /**
    * EX_3_08.
-   * Rewrite the example at the end of Section 3.4, "Transforming Arrays," on
-   *  page 34 using the drop method for dropping the index of the first match. Look
-   *  the method up in Scaladoc.
+   * Rewrite the example at the end of Section 3.4, "Transforming Arrays,".
+   *  Get all indexes of negative elements, place them in reverse order, drop last element.
+   *  Call a.remove(i) for each index.
    */
+  def bookExample(array: ArrayBuffer[Int]): ArrayBuffer[Int] = {
+    var first = true;
+    val indexes = for (i <- 0 until array.length if first || array(i) >= 0) yield {
+      if (array(i) < 0) first = false; i
+    }
+    for (j <- 0 until indexes.length) array(j) = array(indexes(j))
+    array.trimEnd(array.length - indexes.length)
+    array
+  }
+
+  def bookExample2(array: ArrayBuffer[Int]) = {
+    val indexes = for (i <- 0 until array.length if array(i) < 0) yield {
+      i
+    }
+    val nindx = indexes.reverse.dropRight(1)
+    for (j <- nindx) array.remove(j)
+    array
+
+  }
 
   /**
    *  EX_3_09.
    *  Make a collection of all time zones returned by java.util.TimeZone.getAvailableIDs
    *  that are in America. Strip off the "America/" prefix and sort the result.
    */
+  def timeZone(): Array[String] = {
+    val americaIds = for (j <- java.util.TimeZone.getAvailableIDs if j.startsWith("America/")) yield {
+      j
+    }
+    americaIds.map(_.substring(8)).sortWith(_.compareTo(_) < 0)
+
+  }
+
+  def timeZone2(): Array[String] = {
+    java.util.TimeZone.getAvailableIDs
+      .filter(_.startsWith("America/"))
+      .map(_.stripPrefix("America/"))
+      .sorted
+
+  }
 
   /**
    * EX_3_10.
@@ -114,4 +149,12 @@ package object chapter3 {
    *  and get the return value as a Scala buffer. (Why this obscure class? It's hard
    *  to find uses of java.util.List in the standard Java library.)
    */
+  import java.awt.datatransfer._
+  import scala.collection.JavaConverters._
+  def imports() {
+    val flavors = SystemFlavorMap.getDefaultFlavorMap.asInstanceOf[SystemFlavorMap]
+    val sBuffer: Buffer[String] = asScalaBufferConverter(flavors.getNativesForFlavor(DataFlavor.imageFlavor)).asScala
+
+  }
+
 }
